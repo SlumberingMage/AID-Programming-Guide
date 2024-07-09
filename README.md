@@ -14,15 +14,10 @@ The purpose of this document is to provide an overview of AI Dungeon and its fea
 
 The intended audience for this document includes AI Dungeon users and content creators who want to create custom scenarios and interactions in AI Dungeon using LLMs like chatGPT's GPTs and copilot.
 
-### AI LLMs with Coding
-
-The document also serves as a form of configuration for AI LLMs with coding that the intended audience uses for interacting with AI LLMs for generating content for AI Dungeon.
-
 ## Scope
 
 This document covers the following topics:
 
-- LLMs in AI Dungeon
 - Custom Scripting in AI Dungeon
 - Story Cards in AI Dungeon
 - Considerations and Special Cases
@@ -30,33 +25,37 @@ This document covers the following topics:
 
 ## Context
 
-The full context for generating a response from an LLM is 'stitched' together in this order `Memories`, `Adventure` `Plot Essentials`, `Story Summary`, `Authors Note`, `AI Instructions`, and `Response Buffer`. The context is passed to the LLM as a single text blob by concatenating the context elements in the order listed above. It is important to note that the closer an element is to the end of the context, the more likely it is to be used by the LLM in generating a response.
+The full context for generating a response from an LLM is 'stitched' together in this order `AI Instructions`,  `Plot Essentials`, `Story Cards`, `Story Summary` (if enabled), `Memories` (if enabled), `Recent Story`, `Authors Note`, and `Response Buffer`. The context is passed to the LLM as a single text blob by concatenating the context elements in the order listed above. It is important to note that the closer an element is to the end of the context, the more likely it is to be used by the LLM in generating a response.
 
-### Context: Memories
+### AI Instructions
 
-The memories are text vectors that are passed to the LLM as context. They should only appear when relevant to the story.
+AI Instructions tell the AI how to behave. They are either the default instructions for the current model, the default instructions for the scenario, or a variation customized by the user. These instructions are the first thing in context and have no prefix.
 
-### Context: Adventure
+### Plot Essentials
 
-The adventure is a text blob of the story so far that the LLM has created.
+Plot Essentials is a block of user-defined text that typically contains information about the main character or the current story. This text immediately follows the AI Instructions and has no prefix.
 
-### Context: Plot Essentials
+### Story Cards
 
-The plot essentials are a user-defined text blob.
+Story Cards are relavant blocks of user-defined text that are chosen by the AI using a trigger-based system. Each card is separated by a blank line, and the section is prefixed with the heading `World Lore:`.
 
-### Context: Story Summary
+### Story Summary
 
-The story summary is a text blob summary of the story so far that is passed to the LLM as context.
+Story Summary (if enabled) is a summary of the story so far. For premium users, this can be automatically updated by the AI. Otherwise, it is fully user-defined and updated manually. This text is separated by blank lines, and is prefixed with the heading `Story Summary:`.
 
-### Context: Author's Note
+### Memories
 
-The author's note is a user-defined text blob that is passed to the LLM as context. The blob is wrapped with square brackets and the text is prefixed with 'Author's Note: '. `[Author's Note: user-defined-text]`
+Memories (if enabled) are relavant summaries of past story events that are chosen by the AI using an embedding system. Each memory is separated by a newline (not a blank line), and the section is prefixed with the heading `Memories:`.
 
-### Context: AI Instructions
+### Recent Story
 
-The AI instructions are a user-defined text blob that is passed to the LLM as context.
+Recent Story includes as many recent actions as the context will allow. This text is separated by blank lines, with each action displaying in the same paragraph format as it is shown to the user, with Do and Say actions being separated by blank lines and prefixed with `>`. This section is prefixed with the heading `Recent Story:`.
 
-### Context: Response Buffer
+### Author's Note
+
+The author's note is a block of user-defined text that is passed to the LLM as context. The text is wrapped with square brackets and the text is prefixed with 'Author's Note: '. `[Author's Note: user-defined-text]`
+
+### Response Buffer
 
 The response buffer is the space where the LLM generates text to be sent to the user.
 
@@ -70,7 +69,7 @@ AI Dungeon supports custom scripting using JavaScript to process user input befo
 
 4 scripts can be edited in the scenario editor: `Library`, `Input`, `Context`, and `Output`. Each JavaScript file contains a function called `modifier` that takes a string as input and returns an object with a `text` property. The `text` property contains the modified text that will be used by the LLM except the `Library` script which does not have a `text` property.
 
-The Scripting API consists of three lifecycle hooks. `onInput` The input hook allows a script to modify the player’s input text before it is used to construct the model context. `onModelContext` The model context hook allows a script to change the text sent to the AI model before the model is called. `onOutput` The output hook allows a script to modify the model’s output text before it is returned to the player.
+The Scripting API consists of three lifecycle hooks. `onInput` The input hook allows a script to modify the player's input text before it is used to construct the model context. `onModelContext` The model context hook allows a script to change the text sent to the AI model before the model is called. `onOutput` The output hook allows a script to modify the model's output text before it is returned to the player.
 
 #### Scripts: Library
 
@@ -152,8 +151,8 @@ Note that setting the `context` or `authorsNote` here will take precedence over 
   - `type` (string): The type of the action.
     - `start` is the first action of an adventure, and is either created by the AI for a Character Creator scenario or the introduction for the scenario that created the adventure.
     - `continue` - an action created by the AI, for the player this is a button and contains no text.
-    - `do` - a do action submitted by a player in the format "> [Name or You] [Player Input]". For example, "> You walk into the forest."
-    - `say` - a say action submitted by a player is in the format "> [Name or You] [say or says] '"[Player Input]"'. For example, "> You say 'Hello.'"
+    - `do` - a do action submitted by a player in the format "> \[Name or You] \[Player Input]". For example, "> You walk into the forest."
+    - `say` - a say action submitted by a player is in the format "> \[Name or You] \[say or says] '"\[Player Input]"'. For example, "> You say 'Hello.'"
     - `story` - a story action submitted by a player is the raw input from the player.
     - `see` - a see action submitted by a player is a call to use AI image generation based on the player input, and context.
   - `rawText` (string): The raw text of the action.
