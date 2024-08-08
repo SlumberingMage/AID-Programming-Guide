@@ -25,7 +25,7 @@ This document covers the following topics:
 
 ## Context
 
-The full context for generating a response from an LLM is 'stitched' together in this order `AI Instructions`,  `Plot Essentials`, `Story Cards`, `Story Summary` (if enabled), `Memories` (if enabled), `Recent Story`, `Authors Note`, and `Response Buffer`. The context is passed to the LLM as a single text blob by concatenating the context elements in the order listed above. It is important to note that the closer an element is to the end of the context, the more likely it is to be used by the LLM in generating a response.
+The full context for generating a response from an LLM is 'stitched' together in this order `AI Instructions`,  `Plot Essentials`, `Story Cards`, `Story Summary` (if enabled), `Memories` (if enabled), `Recent Story`, `Author's Note`, and `Response Buffer`. The context is passed to the LLM as a single text blob by concatenating the context elements in the order listed above. It is important to note that the closer an element is to the end of the context, the more likely it is to be used by the LLM in generating a response.
 
 ### AI Instructions
 
