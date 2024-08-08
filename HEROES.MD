@@ -4,8 +4,6 @@
 
 The Heroes System is more of a game than the Phoenix system in production. It tracks the game world and a lot more outside the standard input output model with several call backs to the AI to updates aspects of the state.
 
-For this setting we are creating a new scenario Star Wars: The Imperial Cadet. The scenario is set in the Star Wars universe and follows the story of a young Imperial Cadet as they navigate the challenges of the Imperial Academy and the Galactic Empire. The player will have the opportunity to make choices that will shape their character's destiny and determine the outcome of the story.
-
 ## Configuration
 
 Heroes System is configured with JSON files. Each Heroes worlds has several JSON files that define the world, characters, and other aspects of the game. The JSON files are Perks, Races, Skills, Classes, Triggers, WorldLore, BackstoryArcs, ClassSettings, ConfigVersion, OtherSettings, SkillSettings, StorySettings, AttributeSettings, GenerateStartInstructions, and GenerateStoryInstructions.
@@ -67,77 +65,6 @@ The Race object contains the following properties:
         "attributeBonuses": { // The attribute bonuses granted by the race. // The key is the name of the attribute and the value is the bonus value for the attribute. Should only be two or three attributes.
             "charisma": 1,
             "dexterity": 2
-        }
-    }
-}
-```
-
-For the Heroes' scenario Star Wars: The Imperial Cadet, we will be using a modified version of races to fit the theme and mechanics of the scenario.
-
-```json
-{
-    "Human": {
-        "name": "Human",
-        "description": "Humans are the most common species in the galaxy. They are known for their adaptability, ambition, and diversity. Humans can be found in all walks of life, from the lowest criminal to the highest political office.",
-        "attributeBonuses": {
-            "brawn": 1,
-            "willpower": 1,
-        }
-    },
-    "Zabrak": {
-        "name": "Zabrak",
-        "description": "Zabrak are a near-human species known for their distinctive horns and facial tattoos. They are a proud and resilient people, with a strong sense of honor and tradition. Zabrak are often found in positions of leadership and authority.",
-        "attributeBonuses": {
-            "brawn": 1,
-            "willpower": 1,
-        }
-    },
-    "Twi'lek": {
-        "name": "Twi'lek",
-        "description": "Twi'leks are a humanoid species known for their colorful skin and head-tails. They are skilled diplomats and negotiators, with a natural talent for persuasion and charm. Twi'leks are often found in positions of influence and power.",
-        "attributeBonuses": {
-            "agility": 1,
-            "cunning": 1,
-        }
-    },
-    "Rodian": {
-        "name": "Rodian",
-        "description": "Rodians are a reptilian species known for their keen senses and hunting skills. They are natural trackers and marksmen, with a strong connection to nature and the environment. Rodians are often found in roles that require precision and focus.",
-        "attributeBonuses": {
-            "agility": 2,
-            "cunning": 1,
-        }
-    },
-    "Wookiee": {
-        "name": "Wookiee",
-        "description": "Wookiees are a tall, hirsute species known for their strength and loyalty. They are fierce warriors and skilled mechanics, with a deep sense of honor and duty. Wookiees are often found in roles that require physical strength and courage.",
-        "attributeBonuses": {
-            "brawn": 3,
-            "willpower": 1,
-        }
-    },
-    "Droid": {
-        "name": "Droid",
-        "description": "Droids are mechanical beings known for their precision and efficiency. They are skilled technicians and analysts, with a logical and methodical approach to problem-solving. Droids are often found in roles that require technical expertise and data analysis.",
-        "attributeBonuses": {
-            "intellect": 1,
-            "willpower": 2,
-        }
-    },
-    "Bothan": {
-        "name": "Bothan",
-        "description": "Bothans are a furry, mammalian species known for their intelligence and cunning. They are skilled spies and diplomats, with a talent for gathering information and navigating political intrigue. Bothans are often found in roles that require subtlety and discretion.",
-        "attributeBonuses": {
-            "cunning": 2,
-            "presence": 1,
-        }
-    },
-    "Mon Calamari": {
-        "name": "Mon Calamari",
-        "description": "Mon Calamari are an aquatic species known for their creativity and ingenuity. They are skilled engineers and designers, with a talent for technology and innovation. Mon Calamari are often found in roles that require technical expertise and problem-solving.",
-        "attributeBonuses": {
-            "intellect": 2,
-            "presence": 1,
         }
     }
 }
@@ -314,7 +241,7 @@ The ClassSettings object contains the following properties:
 
 This is an example of the ConfigVersion
 
-```json
+```txt
 V20
 ```
 
